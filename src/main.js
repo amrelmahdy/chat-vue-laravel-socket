@@ -2,6 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App.vue'
+import $ from 'jquery'
+import bootstrap from 'bootstrap'
 
 import { router } from './routes'
 import store from './store'
@@ -10,18 +12,8 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 Vue.component('app', App)
-
-router.beforeEach((to, from, next) => {
-  const authUser = JSON.parse(window.localStorage.getItem('authUser'))
-  if (to.meta.requiresAuth) {
-    if (authUser && authUser.access_token) {
-      next()
-    } else {
-      next({name: 'login'})
-    }
-  }
-  next()
-})
+window.$ = $
+window.bootstrap = bootstrap
 
 new Vue({
   router,
